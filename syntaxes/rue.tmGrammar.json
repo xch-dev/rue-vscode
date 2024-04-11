@@ -1,0 +1,273 @@
+{
+  "scopeName": "source.rue",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#constants" },
+    { "include": "#functions" },
+    { "include": "#keywords" },
+    { "include": "#punctuation" },
+    { "include": "#strings" },
+    { "include": "#types" },
+    { "include": "#variables" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        { "include": "#block-comments" },
+        { "include": "#line-comments" }
+      ]
+    },
+    "block-comments": {
+      "patterns": [
+        {
+          "comment": "empty block comments",
+          "name": "comment.block.rue",
+          "match": "/\\*\\*/"
+        },
+        {
+          "comment": "nested block comments",
+          "name": "comment.block.rue",
+          "begin": "/\\*(?!\\*)",
+          "end": "\\*/",
+          "patterns": [{ "include": "#block-comments" }]
+        }
+      ]
+    },
+    "line-comments": {
+      "comment": "line comments",
+      "name": "comment.line.double-slash.rue",
+      "match": "//.*$"
+    },
+
+    "constants": {
+      "patterns": [
+        {
+          "comment": "constant variables",
+          "name": "constant.other.caps.rust",
+          "match": "\\b[A-Z]{2}[A-Z0-9_]*\\b"
+        },
+        {
+          "comment": "constant items",
+          "match": "\\b(const)\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\b",
+          "captures": {
+            "1": { "name": "storage.type.rue" },
+            "2": { "name": "constant.rue" }
+          }
+        },
+        {
+          "comment": "integers",
+          "name": "constant.numeric.decimal.rue",
+          "match": "\\b[0-9][0-9_]*\\b"
+        },
+        {
+          "comment": "booleans",
+          "name": "constant.language.bool.rue",
+          "match": "\\b(true|false)\\b"
+        },
+        {
+          "comment": "nil",
+          "name": "constant.language.null.rue",
+          "match": "\\b(nil)\\b"
+        }
+      ]
+    },
+
+    "functions": {
+      "patterns": [
+        {
+          "comment": "function definition",
+          "name": "meta.function.definition.rue",
+          "begin": "\\b(fun)\\s+([a-zA-Z_][a-zA-Z0-9_]*)(\\()",
+          "beginCaptures": {
+            "1": { "name": "keyword.other.fun.rue" },
+            "2": { "name": "entity.name.function.rue" },
+            "3": { "name": "punctuation.brackets.round.rue" }
+          },
+          "end": "\\{",
+          "endCaptures": {
+            "0": { "name": "punctuation.brackets.curly.rue" }
+          },
+          "patterns": [{ "include": "$self" }]
+        },
+        {
+          "comment": "function call",
+          "name": "meta.function.call.rue",
+          "begin": "([a-zA-Z_][a-zA-Z0-9_]*)(\\()",
+          "beginCaptures": {
+            "1": { "name": "entity.name.function.rue" },
+            "2": { "name": "punctuation.brackets.round.rue" }
+          },
+          "end": "\\)",
+          "endCaptures": {
+            "0": { "name": "punctuation.brackets.round.rue" }
+          },
+          "patterns": [{ "include": "$self" }]
+        }
+      ]
+    },
+
+    "keywords": {
+      "patterns": [
+        {
+          "comment": "control flow keywords",
+          "name": "keyword.control.rue",
+          "match": "\\b(if|else)\\b"
+        },
+        {
+          "comment": "storage keywords",
+          "name": "keyword.other.rue storage.type.rue",
+          "match": "\\b(let|const)\\b"
+        },
+        {
+          "comment": "type keyword",
+          "name": "keyword.declaration.type.rue storage.type.rue",
+          "match": "\\b(type)\\b"
+        },
+        {
+          "comment": "struct keyword",
+          "name": "keyword.declaration.struct.rue storage.type.rue",
+          "match": "\\b(struct)\\b"
+        },
+        {
+          "comment": "fun keyword",
+          "name": "keyword.other.fun.rue",
+          "match": "\\b(fun)\\b"
+        },
+        {
+          "comment": "assignment operator",
+          "name": "keyword.operator.assignment.equal.rue",
+          "match": "(?<![<>])=(?!=|>)"
+        },
+        {
+          "comment": "comparison operators",
+          "name": "keyword.operator.comparison.rue",
+          "match": "(==|!=|<=|(?<!=)>=)"
+        },
+        {
+          "comment": "less than, greater than",
+          "match": "(?:\\b|(?:(\\))|(\\])|(\\})))[ \\t]+([<>])[ \\t]+(?:\\b|(?:(\\()|(\\[)|(\\{)))",
+          "captures": {
+            "1": {
+              "name": "punctuation.brackets.round.rue"
+            },
+            "2": {
+              "name": "punctuation.brackets.square.rue"
+            },
+            "3": {
+              "name": "punctuation.brackets.curly.rue"
+            },
+            "4": {
+              "name": "keyword.operator.comparison.rue"
+            },
+            "5": {
+              "name": "punctuation.brackets.round.rue"
+            },
+            "6": {
+              "name": "punctuation.brackets.square.rue"
+            },
+            "7": {
+              "name": "punctuation.brackets.curly.rue"
+            }
+          }
+        },
+        {
+          "comment": "math operators",
+          "name": "keyword.operator.math.rue",
+          "match": "([+%*]|(-(?!>))|(/(?!/)))"
+        },
+        {
+          "comment": "dot access",
+          "name": "keyword.operator.access.dot.rue",
+          "match": "\\.(?!\\.)"
+        },
+        {
+          "comment": "arrow",
+          "name": "keyword.operator.arrow.skinny.rue",
+          "match": "->"
+        },
+        {
+          "comment": "fat arrow",
+          "name": "keyword.operator.arrow.fat.rue",
+          "match": "=>"
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "comment": "colon",
+          "name": "punctuation.separator.key-value.rue",
+          "match": ":(?!:)"
+        },
+        {
+          "comment": "comma",
+          "name": "punctuation.comma.rue",
+          "match": ","
+        },
+        {
+          "comment": "curly brackets",
+          "name": "punctuation.brackets.curly.rue",
+          "match": "[{}]"
+        },
+        {
+          "comment": "parentheses",
+          "name": "punctuation.brackets.round.rue",
+          "match": "[()]"
+        },
+        {
+          "comment": "semicolon",
+          "name": "punctuation.semi.rue",
+          "match": ";"
+        },
+        {
+          "comment": "square brackets",
+          "name": "punctuation.brackets.square.rue",
+          "match": "[\\[\\]]"
+        }
+      ]
+    },
+
+    "strings": {
+      "patterns": [
+        {
+          "comment": "double quoted string",
+          "name": "string.quoted.double.rue",
+          "begin": "\"",
+          "end": "\""
+        },
+        {
+          "comment": "single quoted string",
+          "name": "string.quoted.single.rue",
+          "begin": "'",
+          "end": "'"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "comment": "primitive types",
+          "name": "entity.name.type.primitive.rue",
+          "match": "\\b(Bool|Int|Bytes)\\b"
+        },
+        {
+          "comment": "struct type",
+          "match": "\\b(struct)\\s+(_?[A-Z][a-zA-Z0-9_]*)\\b",
+          "captures": {
+            "1": { "name": "keyword.declaration.struct.rue storage.type.rue" },
+            "2": { "name": "entity.name.type.struct.rue" }
+          }
+        },
+        {
+          "comment": "named types",
+          "name": "entity.name.type.rue",
+          "match": "\\b_?[A-Z][A-Za-z0-9_]*\\b(?!!)"
+        }
+      ]
+    },
+    "variables": {
+      "name": "variable.other.rue",
+      "match": "\\b[a-z_][a-zA-Z0-9_]*\\b"
+    }
+  }
+}
