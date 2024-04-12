@@ -129,6 +129,11 @@
           "match": "\\b(struct)\\b"
         },
         {
+          "comment": "enum keyword",
+          "name": "keyword.declaration.enum.rue storage.type.rue",
+          "match": "\\b(enum)\\b"
+        },
+        {
           "comment": "fun keyword",
           "name": "keyword.other.fun.rue",
           "match": "\\b(fun)\\b"
@@ -256,6 +261,14 @@
           "captures": {
             "1": { "name": "keyword.declaration.struct.rue storage.type.rue" },
             "2": { "name": "entity.name.type.struct.rue" }
+          }
+        },
+        {
+          "comment": "enum type",
+          "match": "\\b(enum)\\s+(_?[A-Z][a-zA-Z0-9_]*)\\b",
+          "captures": {
+            "1": { "name": "keyword.declaration.enum.rue storage.type.rue" },
+            "2": { "name": "entity.name.type.enum.rue" }
           }
         },
         {
