@@ -139,6 +139,11 @@
           "match": "\\b(fun)\\b"
         },
         {
+          "comment": "other keywords",
+          "name": "keyword.other.rue",
+          "match": "\\b(as|is)\\b"
+        },
+        {
           "comment": "assignment operator",
           "name": "keyword.operator.assignment.equal.rue",
           "match": "(?<![<>])=(?!=|>)"
