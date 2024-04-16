@@ -27,7 +27,7 @@
         {
           "comment": "nested block comments",
           "name": "comment.block.rue",
-          "begin": "/\\*(?!\\*)",
+          "begin": "/\\*",
           "end": "\\*/",
           "patterns": [{ "include": "#block-comments" }]
         }
@@ -111,7 +111,7 @@
         {
           "comment": "control flow keywords",
           "name": "keyword.control.rue",
-          "match": "\\b(if|else)\\b"
+          "match": "\\b(if|else|return|assert|raise)\\b"
         },
         {
           "comment": "storage keywords",
