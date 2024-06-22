@@ -8,7 +8,8 @@
     { "include": "#punctuation" },
     { "include": "#strings" },
     { "include": "#types" },
-    { "include": "#variables" }
+    { "include": "#variables" },
+    { "include": "#modules" }
   ],
   "repository": {
     "comments": {
@@ -57,7 +58,7 @@
         {
           "comment": "integers",
           "name": "constant.numeric.decimal.rue",
-          "match": "\\b[0-9][0-9_]*\\b"
+          "match": "\\b[0-9](?:[0-9_]*|[xX][0-9a-fA-F_]*)\\b"
         },
         {
           "comment": "booleans",
@@ -111,12 +112,17 @@
         {
           "comment": "control flow keywords",
           "name": "keyword.control.rue",
-          "match": "\\b(if|else|return|assert|raise)\\b"
+          "match": "\\b(if|else|return|assert|assume|raise)\\b"
         },
         {
           "comment": "storage keywords",
           "name": "keyword.other.rue storage.type.rue",
           "match": "\\b(let|const)\\b"
+        },
+        {
+          "comment": "modifier keywords",
+          "name": "storage.modifier.rue",
+          "match": "\\b(inline|export)\\b"
         },
         {
           "comment": "type keyword",
@@ -141,7 +147,7 @@
         {
           "comment": "other keywords",
           "name": "keyword.other.rue",
-          "match": "\\b(as|is)\\b"
+          "match": "\\b(as|is|import)\\b"
         },
         {
           "comment": "assignment operator",
@@ -184,6 +190,11 @@
           "comment": "math operators",
           "name": "keyword.operator.math.rue",
           "match": "([+%*]|(-(?!>))|(/(?!/)))"
+        },
+        {
+          "comment": "comparison operators",
+          "name": "keyword.operator.comparison.rue",
+          "match": "(&&|\\|\\|)"
         },
         {
           "comment": "dot access",
@@ -279,13 +290,17 @@
         {
           "comment": "named types",
           "name": "entity.name.type.rue",
-          "match": "\\b_?[A-Z][A-Za-z0-9_]*\\b(?!!)"
+          "match": "\\b_?[A-Z][A-Za-z0-9_]*\\b"
         }
       ]
     },
+    "modules": {
+      "name": "entity.name.namespace.rue",
+      "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b(?=::)"
+    },
     "variables": {
       "name": "variable.other.rue",
-      "match": "\\b[a-z_][a-zA-Z0-9_]*\\b"
+      "match": "\\b[a-z_][a-zA-Z0-9_]*\\b(?!::)"
     }
   }
 }

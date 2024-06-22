@@ -1,4 +1,4 @@
-import { workspace, ExtensionContext } from "vscode";
+import { workspace, ExtensionContext, commands } from "vscode";
 
 import {
   Executable,
@@ -9,11 +9,9 @@ import {
 
 let client: LanguageClient;
 
-export function activate(_context: ExtensionContext) {
-  const command = process.env.SERVER_PATH || "rue-lsp";
-
+export function activate(context: ExtensionContext) {
   const run: Executable = {
-    command,
+    command: process.env.SERVER_PATH || "rue-lsp",
     options: {
       env: {
         ...process.env,
@@ -40,7 +38,7 @@ export function activate(_context: ExtensionContext) {
 
   // Create the language client and start the client.
   client = new LanguageClient(
-    "rueLanguageServer",
+    "rue-language",
     "Rue Language Server",
     serverOptions,
     clientOptions
@@ -48,11 +46,26 @@ export function activate(_context: ExtensionContext) {
 
   // Start the client. This will also launch the server
   client.start();
+
+  context.subscriptions.push(
+    commands.registerCommand("rue-language.startServer", async () => {
+      await client.start();
+    })
+  );
+
+  context.subscriptions.push(
+    commands.registerCommand("rue-language.stopServer", async () => {
+      await client.stop();
+    })
+  );
+
+  context.subscriptions.push(
+    commands.registerCommand("rue-language.restartServer", async () => {
+      await client.restart();
+    })
+  );
 }
 
 export function deactivate(): Thenable<void> | undefined {
-  if (!client) {
-    return undefined;
-  }
-  return client.stop();
+  return client?.stop();
 }
