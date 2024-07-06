@@ -145,6 +145,11 @@
           "match": "\\b(fun)\\b"
         },
         {
+          "comment": "mod keyword",
+          "name": "keyword.other.mod.rue",
+          "match": "\\b(mod)\\b"
+        },
+        {
           "comment": "other keywords",
           "name": "keyword.other.rue",
           "match": "\\b(as|is|import)\\b"
@@ -195,6 +200,11 @@
           "comment": "comparison operators",
           "name": "keyword.operator.comparison.rue",
           "match": "(&&|\\|\\|)"
+        },
+        {
+          "comment": "bitwise operators",
+          "name": "keyword.operator.bitwise.rue",
+          "match": "(&|\\||\\^|<<|>>)"
         },
         {
           "comment": "dot access",
