@@ -4,7 +4,8 @@
   "description": "Language support and LSP client for the Rue programming language",
   "author": "Brandon Haggstrom",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "icon": "images/rue.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/rigidity/rue-vscode"
