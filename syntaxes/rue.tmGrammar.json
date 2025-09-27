@@ -279,7 +279,7 @@
         {
           "comment": "primitive types",
           "name": "entity.name.type.primitive.rue",
-          "match": "\\b(Atom|Bytes|Bytes32|PublicKey|Int|Bool|Any|List)\\b"
+          "match": "\\b(Atom|Bytes|Bytes32|PublicKey|Signature|Int|Bool|Any|List)\\b"
         },
         {
           "comment": "struct type",
