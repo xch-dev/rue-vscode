@@ -4,7 +4,7 @@
   "description": "Language support and LSP client for the Rue programming language",
   "author": "Brandon Haggstrom",
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "icon": "images/rue.png",
   "repository": {
     "type": "git",
@@ -62,8 +62,8 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -b",
     "watch": "tsc -b -w",
-    "lint": "eslint ./client/src ./server/src --ext .ts,.tsx",
-    "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+    "lint": "eslint ./client/src --ext .ts,.tsx",
+    "postinstall": "cd client && npm install && cd ..",
     "test": "sh ./scripts/e2e.sh"
   },
   "devDependencies": {
