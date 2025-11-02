@@ -1,8 +1,8 @@
 {
   "scopeName": "source.rue",
   "patterns": [
-    { "include": "#keywords" },
     { "include": "#comments" },
+    { "include": "#keywords" },
     { "include": "#constants" },
     { "include": "#functions" },
     { "include": "#punctuation" },
@@ -58,7 +58,7 @@
         {
           "comment": "integers",
           "name": "constant.numeric.decimal.rue",
-          "match": "\\b[0-9](?:[0-9_]*|[xX][0-9a-fA-F_]*)\\b"
+          "match": "\\b(?:0x[0-9a-fA-F_]*|0o[0-7_]*|0b[01_]*|[0-9][0-9_]*)\\b"
         },
         {
           "comment": "booleans",
@@ -110,7 +110,7 @@
         {
           "comment": "control flow keywords",
           "name": "keyword.control.rue",
-          "match": "\\b(if|else|return|assert|raise)\\b"
+          "match": "\\b(if|else|match|return|assert|raise|debug)\\b"
         },
         {
           "comment": "storage keywords",
