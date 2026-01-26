@@ -196,7 +196,7 @@
         {
           "comment": "bitwise operators",
           "name": "keyword.operator.bitwise.rue",
-          "match": "(&|\\||\\^|<<|>>)"
+          "match": "(&|\\||\\^|<<|>>>?)"
         },
         {
           "comment": "ellipsis",
