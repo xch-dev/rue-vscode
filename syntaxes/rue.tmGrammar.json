@@ -109,7 +109,7 @@
         {
           "comment": "control flow keywords",
           "name": "keyword.control.rue",
-          "match": "\\b(if|else|match|return|assert|raise|debug|super)\\b"
+          "match": "\\b(if|else|return|assert|raise|debug|super)\\b"
         },
         {
           "comment": "storage keywords",
@@ -144,7 +144,7 @@
         {
           "comment": "other keywords",
           "name": "keyword.other.rue",
-          "match": "\\b(as|is|import)\\b"
+          "match": "\\b(as|is|import|from)\\b"
         },
         {
           "comment": "assignment operator",
