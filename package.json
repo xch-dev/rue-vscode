@@ -4,7 +4,7 @@
   "description": "Language support and LSP client for the Rue programming language",
   "author": "Brandon Haggstrom",
   "license": "MIT",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "icon": "images/rue.png",
   "repository": {
     "type": "git",
@@ -40,6 +40,11 @@
         "path": "./syntaxes/rue.tmGrammar.json"
       }
     ],
+    "configurationDefaults": {
+      "[rue]": {
+        "editor.defaultFormatter": "Rigidity.rue-language"
+      }
+    },
     "commands": [
       {
         "command": "rue-language.startServer",
