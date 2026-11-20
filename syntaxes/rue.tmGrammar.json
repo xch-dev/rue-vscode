@@ -109,7 +109,7 @@
         {
           "comment": "control flow keywords",
           "name": "keyword.control.rue",
-          "match": "\\b(if|else|return|assert|raise|debug|super)\\b"
+          "match": "\\b(if|else|return|assert|raise|debug|super|project)\\b"
         },
         {
           "comment": "storage keywords",
@@ -295,7 +295,7 @@
     },
     "variables": {
       "name": "variable.other.rue",
-      "match": "\\b(?!super\\b)[a-z_][a-zA-Z0-9_]*\\b(?!\\(|::<)"
+      "match": "\\b(?!(?:super|project)\\b)[a-z_][a-zA-Z0-9_]*\\b(?!\\(|::<)"
     }
   }
 }
