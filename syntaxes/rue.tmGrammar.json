@@ -109,7 +109,7 @@
         {
           "comment": "control flow keywords",
           "name": "keyword.control.rue",
-          "match": "\\b(if|else|return|assert|raise|debug|super|project)\\b"
+          "match": "\\b(if|else|match|return|assert|raise|debug|super|project)\\b"
         },
         {
           "comment": "storage keywords",
@@ -287,6 +287,11 @@
           }
         },
         {
+          "comment": "wildcard match arm",
+          "name": "entity.name.type.rue",
+          "match": "\\b_\\b(?=\\s*=>)"
+        },
+        {
           "comment": "named types",
           "name": "entity.name.type.rue",
           "match": "\\b_?[A-Z][A-Za-z0-9_]*\\b"
@@ -295,7 +300,7 @@
     },
     "variables": {
       "name": "variable.other.rue",
-      "match": "\\b(?!(?:super|project)\\b)[a-z_][a-zA-Z0-9_]*\\b(?!\\(|::<)"
+      "match": "\\b(?!(?:match|super|project)\\b)[a-z_][a-zA-Z0-9_]*\\b(?!\\(|::<)"
     }
   }
 }
