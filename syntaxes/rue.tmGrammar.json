@@ -2,6 +2,7 @@
   "scopeName": "source.rue",
   "patterns": [
     { "include": "#comments" },
+    { "include": "#for-expressions" },
     { "include": "#keywords" },
     { "include": "#constants" },
     { "include": "#functions" },
@@ -104,12 +105,78 @@
       ]
     },
 
+    "for-expressions": {
+      "comment": "for expression header, from `for` to the `{` of its body. `in` and `fold` are only keywords here",
+      "begin": "\\b(for)\\b",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.rue" }
+      },
+      "end": "\\{",
+      "endCaptures": {
+        "0": { "name": "punctuation.brackets.curly.rue" }
+      },
+      "patterns": [
+        {
+          "comment": "contextual keywords in a for header",
+          "name": "keyword.control.rue",
+          "match": "\\b(in|fold)\\b"
+        },
+        {
+          "comment": "struct binding after `for`, `,` or `fold`, which isn't the body",
+          "begin": "(?<=\\bfor|,|\\bfold)\\s*(\\{)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.brackets.curly.rue" }
+          },
+          "end": "\\}",
+          "endCaptures": {
+            "0": { "name": "punctuation.brackets.curly.rue" }
+          },
+          "patterns": [{ "include": "$self" }]
+        },
+        { "include": "#for-header-groups" },
+        { "include": "$self" }
+      ]
+    },
+    "for-header-groups": {
+      "patterns": [
+        {
+          "comment": "parentheses in a for header, which can hold a `{`",
+          "begin": "\\(",
+          "beginCaptures": {
+            "0": { "name": "punctuation.brackets.round.rue" }
+          },
+          "end": "\\)",
+          "endCaptures": {
+            "0": { "name": "punctuation.brackets.round.rue" }
+          },
+          "patterns": [{ "include": "#for-header-group-contents" }]
+        },
+        {
+          "comment": "square brackets in a for header, which can hold a `{`",
+          "begin": "\\[",
+          "beginCaptures": {
+            "0": { "name": "punctuation.brackets.square.rue" }
+          },
+          "end": "\\]",
+          "endCaptures": {
+            "0": { "name": "punctuation.brackets.square.rue" }
+          },
+          "patterns": [{ "include": "#for-header-group-contents" }]
+        }
+      ]
+    },
+    "for-header-group-contents": {
+      "patterns": [
+        { "include": "#for-header-groups" },
+        { "include": "$self" }
+      ]
+    },
     "keywords": {
       "patterns": [
         {
           "comment": "control flow keywords",
           "name": "keyword.control.rue",
-          "match": "\\b(if|else|match|return|assert|raise|debug|super|project)\\b"
+          "match": "\\b(if|else|for|match|return|assert|raise|debug|super|project)\\b"
         },
         {
           "comment": "storage keywords",
@@ -129,7 +196,12 @@
         {
           "comment": "struct keyword",
           "name": "keyword.declaration.struct.rue storage.type.rue",
-          "match": "\\b(struct)\\b"
+          "match": "\\b(struct)\\b(?!\\s+_?[A-Z])"
+        },
+        {
+          "comment": "enum keyword",
+          "name": "keyword.declaration.enum.rue storage.type.rue",
+          "match": "\\b(enum)\\b(?!\\s+_?[A-Z])"
         },
         {
           "comment": "fn keyword",
@@ -276,7 +348,7 @@
         {
           "comment": "primitive types",
           "name": "entity.name.type.primitive.rue",
-          "match": "\\b(Atom|Bytes|Bytes32|PublicKey|Signature|Int|Bool|Any|List)\\b"
+          "match": "\\b(Atom|Bytes|Bytes32|String|PublicKey|Signature|K1PublicKey|K1Signature|R1PublicKey|R1Signature|Int|Bool|Any|Never|List|AlternatingList)\\b"
         },
         {
           "comment": "struct type",
@@ -284,6 +356,14 @@
           "captures": {
             "1": { "name": "keyword.declaration.struct.rue storage.type.rue" },
             "2": { "name": "entity.name.type.struct.rue" }
+          }
+        },
+        {
+          "comment": "enum type",
+          "match": "\\b(enum)\\s+(_?[A-Z][a-zA-Z0-9_]*)\\b",
+          "captures": {
+            "1": { "name": "keyword.declaration.enum.rue storage.type.rue" },
+            "2": { "name": "entity.name.type.enum.rue" }
           }
         },
         {
@@ -300,7 +380,7 @@
     },
     "variables": {
       "name": "variable.other.rue",
-      "match": "\\b(?!(?:match|super|project)\\b)[a-z_][a-zA-Z0-9_]*\\b(?!\\(|::<)"
+      "match": "\\b(?!(?:for|enum|match|super|project)\\b)[a-z_][a-zA-Z0-9_]*\\b(?!\\(|::<)"
     }
   }
 }
