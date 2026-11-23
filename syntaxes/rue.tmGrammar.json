@@ -277,6 +277,11 @@
           "match": "\\.\\.\\."
         },
         {
+          "comment": "range, as in a slice such as `list[1..]`",
+          "name": "keyword.operator.range.rue",
+          "match": "\\.\\.(?!\\.)"
+        },
+        {
           "comment": "dot access",
           "name": "keyword.operator.access.dot.rue",
           "match": "\\.(?!\\.)"
