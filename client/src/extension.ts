@@ -28,11 +28,15 @@ export function activate(context: ExtensionContext) {
 
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
-    // Register the server for plain text documents
     documentSelector: [{ scheme: "file", language: "rue" }],
+    // The server reads which inlay hints to show from these when it starts
+    initializationOptions: {
+      inlayHints: workspace.getConfiguration("rue").get("inlayHints"),
+    },
     synchronize: {
-      // Notify the server about file changes to '.clientrc files contained in the workspace
-      fileEvents: workspace.createFileSystemWatcher("**/.clientrc"),
+      // Sends the `rue` settings to the server whenever they change. The server registers its own
+      // watchers for `.rue` files and `Rue.toml`
+      configurationSection: "rue",
     },
   };
 

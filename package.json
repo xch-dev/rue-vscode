@@ -40,6 +40,26 @@
         "path": "./syntaxes/rue.tmGrammar.json"
       }
     ],
+    "configuration": {
+      "title": "Rue",
+      "properties": {
+        "rue.inlayHints.types": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Show the types of `let` bindings and lambda parameters that don't have one written."
+        },
+        "rue.inlayHints.genericArguments": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Show the generic arguments that were inferred for a call."
+        },
+        "rue.inlayHints.parameterNames": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Show the names of the parameters that the arguments of a call are for."
+        }
+      }
+    },
     "configurationDefaults": {
       "[rue]": {
         "editor.defaultFormatter": "Rigidity.rue-language"
