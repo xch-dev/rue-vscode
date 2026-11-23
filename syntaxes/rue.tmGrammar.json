@@ -333,13 +333,29 @@
           "comment": "double quoted string",
           "name": "string.quoted.double.rue",
           "begin": "\"",
-          "end": "\""
+          "end": "\"",
+          "patterns": [{ "include": "#string-escapes" }]
         },
         {
           "comment": "single quoted string",
           "name": "string.quoted.single.rue",
           "begin": "'",
-          "end": "'"
+          "end": "'",
+          "patterns": [{ "include": "#string-escapes" }]
+        }
+      ]
+    },
+    "string-escapes": {
+      "patterns": [
+        {
+          "comment": "escape sequences, the same as Rust's, including a backslash at the end of a line",
+          "name": "constant.character.escape.rue",
+          "match": "\\\\(?:[nrt\\\\0'\"]|x[0-7][0-9a-fA-F]|u\\{[0-9a-fA-F][0-9a-fA-F_]{0,5}\\}|$)"
+        },
+        {
+          "comment": "any other escape is invalid, but still never ends the string",
+          "name": "invalid.illegal.escape.rue",
+          "match": "\\\\."
         }
       ]
     },
