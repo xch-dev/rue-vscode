@@ -2,6 +2,7 @@
   "scopeName": "source.rue",
   "patterns": [
     { "include": "#comments" },
+    { "include": "#attributes" },
     { "include": "#for-expressions" },
     { "include": "#keywords" },
     { "include": "#constants" },
@@ -289,6 +290,30 @@
           "comment": "fat arrow",
           "name": "keyword.operator.arrow.fat.rue",
           "match": "=>"
+        }
+      ]
+    },
+    "attributes": {
+      "comment": "outer attributes such as `#[allow(unused_binding)]`, and inner attributes such as `#![allow(unused_binding)]`",
+      "name": "meta.attribute.rue",
+      "begin": "(#)(!?)(\\[)\\s*([a-zA-Z_][a-zA-Z0-9_]*)?",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.attribute.rue" },
+        "2": { "name": "punctuation.definition.attribute.inner.rue" },
+        "3": { "name": "punctuation.brackets.attribute.rue" },
+        "4": { "name": "entity.name.function.attribute.rue" }
+      },
+      "end": "\\]",
+      "endCaptures": {
+        "0": { "name": "punctuation.brackets.attribute.rue" }
+      },
+      "patterns": [
+        { "include": "#comments" },
+        { "include": "#punctuation" },
+        {
+          "comment": "attribute arguments, such as lint names",
+          "name": "variable.other.rue",
+          "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
         }
       ]
     },
