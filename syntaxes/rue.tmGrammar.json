@@ -2,6 +2,7 @@
   "scopeName": "source.rue",
   "patterns": [
     { "include": "#comments" },
+    { "include": "#attributes" },
     { "include": "#for-expressions" },
     { "include": "#keywords" },
     { "include": "#constants" },
@@ -276,6 +277,11 @@
           "match": "\\.\\.\\."
         },
         {
+          "comment": "range, as in a slice such as `list[1..]`",
+          "name": "keyword.operator.range.rue",
+          "match": "\\.\\.(?!\\.)"
+        },
+        {
           "comment": "dot access",
           "name": "keyword.operator.access.dot.rue",
           "match": "\\.(?!\\.)"
@@ -289,6 +295,30 @@
           "comment": "fat arrow",
           "name": "keyword.operator.arrow.fat.rue",
           "match": "=>"
+        }
+      ]
+    },
+    "attributes": {
+      "comment": "outer attributes such as `#[allow(unused_binding)]`, and inner attributes such as `#![allow(unused_binding)]`. One without its `]` ends before anything that can't be in an attribute, such as the item after it",
+      "name": "meta.attribute.rue",
+      "begin": "(#)(!?)(\\[)\\s*([a-zA-Z_][a-zA-Z0-9_]*)?",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.attribute.rue" },
+        "2": { "name": "punctuation.definition.attribute.inner.rue" },
+        "3": { "name": "punctuation.brackets.attribute.rue" },
+        "4": { "name": "entity.name.function.attribute.rue" }
+      },
+      "end": "\\]|(?=[^\\s\\w(),/]|\\b(?:import|export|extern|inline|test|mod|fn|const|type|struct|enum|let|if|for|match|return|assert|raise|debug)\\b)",
+      "endCaptures": {
+        "0": { "name": "punctuation.brackets.attribute.rue" }
+      },
+      "patterns": [
+        { "include": "#comments" },
+        { "include": "#punctuation" },
+        {
+          "comment": "attribute arguments, such as lint names",
+          "name": "variable.other.rue",
+          "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
         }
       ]
     },
@@ -333,13 +363,29 @@
           "comment": "double quoted string",
           "name": "string.quoted.double.rue",
           "begin": "\"",
-          "end": "\""
+          "end": "\"",
+          "patterns": [{ "include": "#string-escapes" }]
         },
         {
           "comment": "single quoted string",
           "name": "string.quoted.single.rue",
           "begin": "'",
-          "end": "'"
+          "end": "'",
+          "patterns": [{ "include": "#string-escapes" }]
+        }
+      ]
+    },
+    "string-escapes": {
+      "patterns": [
+        {
+          "comment": "escape sequences, the same as Rust's, including a backslash at the end of a line",
+          "name": "constant.character.escape.rue",
+          "match": "\\\\(?:[nrt\\\\0'\"]|x[0-7][0-9a-fA-F]|u\\{[0-9a-fA-F](?:_*[0-9a-fA-F]){0,5}_*\\}|$)"
+        },
+        {
+          "comment": "any other escape is invalid, but still never ends the string",
+          "name": "invalid.illegal.escape.rue",
+          "match": "\\\\."
         }
       ]
     },
